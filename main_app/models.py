@@ -9,7 +9,7 @@ class event(models.Model):
     description = models.TextField()
     catagory = models.ForeignKey('catagory', on_delete=models.CASCADE)
     vendor = models.ManyToManyField('vendor')
-    participants = models.integerField(max_length=255)
+    participants = models.IntegerField(max_length=255)
 
     def __str__(self):
         return f'{self.name}, {self.id}'
