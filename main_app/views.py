@@ -1,9 +1,10 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Event, Category, Vendor, Rating
-
+from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
 # Create your views here.
-def home(request):
-    return render(request, "home.html")
+# def home(request):
+#     return render(request, "home.html")
 
 
 def about(request):
@@ -19,3 +20,27 @@ def home(request):
     recent_events = Event.objects.order_by('date')[:2]  # Fetch the two closest events
     context = {'recent_events': recent_events}
     return render(request, 'home.html', context)
+
+def become_vendor(request):
+    if request.method == 'POST':
+        vendor_name = request.POST.get('vendor_name')
+        vendor_description = request.POST.get('vendor_description')
+        vendor_phone_number = request.POST.get('vendor_phone_number')
+        vendor_email = request.POST.get('vendor_email')
+        vendor_pricing = request.POST.get('vendor_pricing')
+        selected_events = request.POST.getlist('events')
+
+        vendor = Vendor.objects.create(
+            name=vendor_name,
+            description=vendor_description,
+            phone_number=vendor_phone_number,
+            email=vendor_email,
+            pricing=vendor_pricing
+        )
+        vendor.events.set(selected_events)  # Add selected events to the vendor's events
+
+        return redirect('home')  # Adjust 'home' to the appropriate URL name
+
+    events = Event.objects.all()
+    context = {'events': events}
+    return render(request, 'become_vendor.html', context)
