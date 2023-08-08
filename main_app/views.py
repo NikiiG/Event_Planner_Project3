@@ -52,7 +52,6 @@ class EventCreate(CreateView):
     fields = "__all__"
 
     def form_valid(self, form):
-        # Save the form and get the created event instance
         instance = form.save()
 
         # Redirect to the 'upcoming_events' view
