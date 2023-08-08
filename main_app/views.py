@@ -1,4 +1,5 @@
 from django.urls import reverse
+from django.core.paginator import Paginator
 from urllib import request
 from django.http import HttpResponseNotAllowed
 from django.shortcuts import render, redirect
@@ -64,3 +65,18 @@ def upcoming_events(request):
 
 
 
+
+def event_detail(request, event_id):
+    event = Event.objects.get(id=event_id)
+    context = {'event': event}
+    return render(request, 'events/event_detail.html', context)
+
+
+class EventUpdate(UpdateView):
+    model = Event
+    fields = "__all__"
+
+
+class EventDelete(DeleteView):
+    model = Event
+    success_url = "/upcoming_events"
