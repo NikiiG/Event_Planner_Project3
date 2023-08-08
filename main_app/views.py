@@ -1,3 +1,6 @@
+from django.urls import reverse
+from urllib import request
+from django.http import HttpResponseNotAllowed
 from django.shortcuts import render, redirect
 from .models import Event, Category, Vendor, Rating
 from django.shortcuts import render
@@ -47,3 +50,15 @@ def become_vendor(request):
 class EventCreate(CreateView):
     model = Event
     fields = "__all__"
+
+    def form_valid(self, form):
+        # Save the form and get the created event instance
+        instance = form.save()
+
+        # Redirect to the 'upcoming_events' view
+        return redirect(reverse('upcoming_events'))
+
+def upcoming_events(request):
+    upcoming_events = Event.objects.order_by('date')
+    context = {'upcoming_events': upcoming_events}
+    return render(request, 'upcoming_events.html', context)
