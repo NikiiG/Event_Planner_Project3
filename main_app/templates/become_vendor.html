@@ -28,7 +28,7 @@
             <input type="number" class="form-control" id="vendor_pricing" name="vendor_pricing" required>
         </div>
         <div class="mb-3">
-            <label class="form-label">Select Events to Participate:</label>
+            <label class="form-label">Select Events You Want to Participate:</label>
             {% for event in events %}
             <div class="form-check">
                 <input type="checkbox" class="form-check-input" id="event_{{ event.id }}" name="selected_events" value="{{ event.id }}">
