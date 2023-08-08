@@ -27,7 +27,7 @@ class Event(models.Model):
     choices=CAT,
     default=CAT[0][0]
   )
-    # vendors = models.ManyToManyField(Vendor)
+    vendors = models.ManyToManyField(Vendor)
     participants = models.IntegerField()
 
     def __str__(self):
