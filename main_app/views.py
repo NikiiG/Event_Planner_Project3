@@ -38,13 +38,10 @@ def become_vendor(request):
             email=vendor_email,
             pricing=vendor_pricing
         )
-        vendor.events.set(selected_events)  # Add selected events to the vendor's events
 
         return redirect('home')  # Adjust 'home' to the appropriate URL name
 
-    events = Event.objects.all()
-    context = {'events': events}
-    return render(request, 'become_vendor.html', context)
+    return render(request, 'become_vendor.html')
 
 
 class EventCreate(CreateView):

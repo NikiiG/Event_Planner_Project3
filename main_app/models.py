@@ -13,7 +13,6 @@ class Vendor(models.Model):
     phone_number = models.CharField(max_length=255)
     email = models.EmailField()
     pricing = models.CharField()
-
     def __str__(self):
         return f'{self.name}, {self.id}'
 
@@ -23,6 +22,7 @@ class Event(models.Model):
     location = models.CharField(max_length=255)
     description = models.TextField()
     Category = models.CharField(
+
     max_length=1,
     choices=CAT,
     default=CAT[0][0]
