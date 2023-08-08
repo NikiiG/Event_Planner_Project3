@@ -76,8 +76,12 @@
     }
 }
 
-# styling for featured event of home
-/* Add this CSS to your existing stylesheet or link a new one */
+.plain-link {
+  /* Remove default link styling */
+  text-decoration: none;
+  color: inherit;
 
-
+  /* Apply cursor style to indicate it's clickable */
+  cursor: pointer;
+}
 
