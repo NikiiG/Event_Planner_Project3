@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 from datetime import date
 
 # Create your models here.
@@ -16,23 +17,24 @@ class Vendor(models.Model):
     def __str__(self):
         return f'{self.name}, {self.id}'
 
+
 class Event(models.Model):
     name = models.CharField(max_length=255)
     date = models.DateField()
     location = models.CharField(max_length=255)
     description = models.TextField()
-    Category = models.CharField(
-
+    category = models.CharField(
     max_length=1,
     choices=CAT,
     default=CAT[0][0]
   )
-    vendors = models.ManyToManyField(Vendor)
+    # vendors = models.ManyToManyField(Vendor)
     participants = models.IntegerField()
 
     def __str__(self):
         return f'{self.name}, {self.id}'
-
+    def get_absolute_url(self):
+        return reverse('home') 
 
 class Category(models.Model):
     type = models.CharField(max_length=255)
