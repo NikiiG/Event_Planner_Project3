@@ -41,7 +41,6 @@ def become_vendor(request):
 
         return redirect('home')  # Adjust 'home' to the appropriate URL name
 
-
     return render(request, 'become_vendor.html')
 
 
