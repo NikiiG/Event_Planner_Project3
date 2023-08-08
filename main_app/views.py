@@ -62,3 +62,6 @@ def upcoming_events(request):
     upcoming_events = Event.objects.order_by('date')
     context = {'upcoming_events': upcoming_events}
     return render(request, 'upcoming_events.html', context)
+
+
+
