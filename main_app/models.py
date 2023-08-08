@@ -2,7 +2,10 @@ from django.db import models
 from datetime import date
 
 # Create your models here.
-
+CAT = (
+    ('B', 'Bootcamp'),
+    ('S', 'Social Event')
+)
 
 class Vendor(models.Model):
     name = models.CharField(max_length=255)
@@ -19,8 +22,12 @@ class Event(models.Model):
     date = models.DateField()
     location = models.CharField(max_length=255)
     description = models.TextField()
-    category = models.ForeignKey('Category', on_delete=models.CASCADE)
-    vendors = models.ManyToManyField(Vendor)
+    Category = models.CharField(
+    max_length=1,
+    choices=CAT,
+    default=CAT[0][0]
+  )
+    # vendors = models.ManyToManyField(Vendor)
     participants = models.IntegerField()
 
     def __str__(self):
