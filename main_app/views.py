@@ -96,3 +96,17 @@ def signup(request):
   form = UserCreationForm()
   context = {'form': form, 'error_message': error_message}
   return render(request, 'registration/signup.html', context)
+
+
+def dashboard(request):
+    if request.user.is_authenticated:
+        user_vendors = Vendor.objects.filter(email=request.user.email)
+        user_events = Event.objects.filter(vendors__in=user_vendors)
+
+        context = {
+            'user_events': user_events,
+            'user_vendors': user_vendors,
+        }
+        return render(request, 'dashboard.html', context)
+    else:
+        return redirect('login')
