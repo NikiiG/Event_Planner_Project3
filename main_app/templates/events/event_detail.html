@@ -2,19 +2,34 @@
 
 {% block content %}
 <div class="container">
-    <h1 class="text-center mt-5 mb-5 bg-teal">{{ event.name }}</h1>
-
-    <div class="row">
-        <div class="col-md-6 mb-4">
-            <div class="card">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card mt-5">
+                <div class="card-header bg-teal text-black">
+                    <h1 class="text-center">{{ event.name }}</h1>
+                </div>
                 <div class="card-body">
-                    <p class="card-text">Description:{{ event.description }}</p>
-                    <p class="card-text">Date: {{ event.date }}</p>
-                    <p class="card-text">Location: {{ event.location }}</p>
-                    <p class="card-text">Category: {{ event.category }}</p>
-                    <p class="card-text">Participants: {{ event.participants }}</p>
-                    <a href="{% url 'Events_update' event.id %}">Edit</a>
-                    <a href="{% url 'Events_delete' event.id %}">Delete</a>
+                    <div class="event-description">
+                        <h3 class="mb-3">Event Description</h3>
+                        <p>{{ event.description }}</p>
+                    </div>
+                    <hr>
+                    <div class="event-details">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <p><strong><i class="fas fa-calendar-alt"></i> </strong> {{ event.date }}</p>
+                                <p><strong><i class="fas fa-map-marker-alt"></i></strong> {{ event.location }}</p>
+                            </div>
+                            <div class="col-md-6">
+                                <p><strong><i class="fas fa-tag"></i> Category:</strong> {{ event.category }}</p>
+                                <p><strong><i class="fas fa-users"></i> Participants:</strong> {{ event.participants }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-center mt-4">
+                        <a href="#" class="btn btn-primary mr-3"><i class="fas fa-edit"></i> Edit</a>
+                        <a href="{% url 'Events_delete' event.id %}" class="btn btn-danger"><i class="fas fa-trash"></i> Delete</a>
+                    </div>
                 </div>
             </div>
         </div>

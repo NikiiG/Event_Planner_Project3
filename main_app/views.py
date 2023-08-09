@@ -6,10 +6,10 @@ from django.shortcuts import render, redirect
 from .models import Event, Category, Vendor, Rating
 from django.shortcuts import render
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.contrib.auth import login
+from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
-
-
-
+from django.contrib.auth.mixins import LoginRequiredMixin
 # Create your views here.
 # def home(request):
 #     return render(request, "home.html")
@@ -29,6 +29,7 @@ def home(request):
     context = {'recent_events': recent_events}
     return render(request, 'home.html', context)
 
+@login_required
 def become_vendor(request):
     if request.method == 'POST':
         vendor_name = request.POST.get('vendor_name')
@@ -54,22 +55,18 @@ def become_vendor(request):
 class EventCreate(CreateView):
     model = Event
     fields = "__all__"
-   
-
 
     def form_valid(self, form):
-      
-        instance = form.save()
-        # Redirect to the 'upcoming_events' view
-        return redirect(reverse('upcoming_events'))
+        # self.request.user is the logged in user
+        form.instance.user = self.request.user
+        # Let the CreateView's form_valid method
+        # do its regular work (saving the object & redirecting)
+        return super().form_valid(form)
 
 def upcoming_events(request):
     upcoming_events = Event.objects.order_by('date')
     context = {'upcoming_events': upcoming_events}
     return render(request, 'upcoming_events.html', context)
-
-
-
 
 def event_detail(request, event_id):
     event = Event.objects.get(id=event_id)
@@ -77,11 +74,25 @@ def event_detail(request, event_id):
     return render(request, 'events/event_detail.html', context)
 
 
-class EventUpdate(UpdateView):
+class EventUpdate(LoginRequiredMixin, UpdateView):
     model = Event
     fields = "__all__"
 
 
-class EventDelete(DeleteView):
+class EventDelete(LoginRequiredMixin, DeleteView):
     model = Event
     success_url = "/upcoming_events"
+
+def signup(request):
+  error_message = ''
+  if request.method == 'POST':
+    form = UserCreationForm(request.POST)
+    if form.is_valid():
+      user = form.save()
+      login(request, user)
+      return redirect('upcoming_events')
+    else:
+      error_message = 'Invalid sign up - try again'
+  form = UserCreationForm()
+  context = {'form': form, 'error_message': error_message}
+  return render(request, 'registration/signup.html', context)
