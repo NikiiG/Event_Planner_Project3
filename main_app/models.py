@@ -26,9 +26,8 @@ class Event(models.Model):
     description = models.TextField()
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     category = models.CharField(
-    max_length=1,
-    choices=CAT,
-    default=CAT[0][0]
+    max_length=100,
+
     
   )
     # vendors = models.ManyToManyField(Vendor)

@@ -1,13 +1,23 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  <h1>Delete Event</h1>
-
-  <h4>Are you sure you want to delete <span class="teal-text">{{ event.name }}</span>?</h4>
-
-  <form action="" method="POST">
-    {% csrf_token %}
-    <input type="submit" value="Yes - Delete!" class="btn">
-    <a href="{% url 'event_detail' event.id %}">Cancel</a>
-  </form>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-6">
+            <div class="card mt-5">
+                <div class="card-header bg-danger text-white">
+                    <h1 class="text-center"><i class="fas fa-trash-alt"></i> Delete Event</h1>
+                </div>
+                <div class="card-body">
+                    <h4 class="text-center mb-4">Are you sure you want to delete <span class="teal-text">{{ event.name }}</span>?</h4>
+                    <form action="" method="POST" class="text-center">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger mr-3"><i class="fas fa-trash-alt"></i> Yes - Delete!</button>
+                        <a href="{% url 'event_detail' event.id %}" class="btn btn-secondary"><i class="fas fa-times-circle"></i> Cancel</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}
