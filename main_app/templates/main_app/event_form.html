@@ -6,7 +6,7 @@
   {% else %}
     <h1>Add Event</h1>
   {% endif %}
-  <form action="{% url 'create_event' %}" method="post">
+  <form action="" method="POST">
     {% csrf_token %}
     <table>
       {{ form.as_table }}

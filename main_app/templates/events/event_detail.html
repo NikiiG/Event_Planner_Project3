@@ -8,13 +8,13 @@
         <div class="col-md-6 mb-4">
             <div class="card">
                 <div class="card-body">
-                    <p class="card-text">{{ event.description }}</p>
+                    <p class="card-text">Description:{{ event.description }}</p>
                     <p class="card-text">Date: {{ event.date }}</p>
                     <p class="card-text">Location: {{ event.location }}</p>
                     <p class="card-text">Category: {{ event.category }}</p>
                     <p class="card-text">Participants: {{ event.participants }}</p>
-                    <type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Edit</button>
-                    <a href="{% url 'Events_delete' event.id %}" type="button" class="btn btn-danger">Delete</a>
+                    <a href="{% url 'Events_update' event.id %}">Edit</a>
+                    <a href="{% url 'Events_delete' event.id %}">Delete</a>
                 </div>
             </div>
         </div>

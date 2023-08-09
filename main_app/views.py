@@ -7,6 +7,9 @@ from .models import Event, Category, Vendor, Rating
 from django.shortcuts import render
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.auth.decorators import login_required
+
+
+
 # Create your views here.
 # def home(request):
 #     return render(request, "home.html")
@@ -51,10 +54,12 @@ def become_vendor(request):
 class EventCreate(CreateView):
     model = Event
     fields = "__all__"
+   
+
 
     def form_valid(self, form):
+      
         instance = form.save()
-
         # Redirect to the 'upcoming_events' view
         return redirect(reverse('upcoming_events'))
 
