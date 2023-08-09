@@ -1,16 +1,47 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  {% if object %}
-    <h1>Edit <span class="teal-text">{{object.name}}</span></h1>
-  {% else %}
-    <h1>Add Event</h1>
-  {% endif %}
-  <form action="{% url 'create_event' %}" method="post">
-    {% csrf_token %}
-    <table>
-      {{ form.as_table }}
-    </table>
-    <input type="submit" value="Submit!" class="btn">
-  </form>
+<div class="container">
+  <div class="row justify-content-center align-items-center min-vh-100">
+    <div class="col-md-6">
+      <div class="card p-5 shadow">
+        {% if object %}
+          <h1 class="display-4 text-center mb-4"><i class="fas fa-edit"></i> Edit <span class="text-primary">{{ object.name }}</span></h1>
+        {% else %}
+          <h1 class="display-4 text-center mb-4"><i></i> Add Event</h1>
+        {% endif %}
+        <form action="{% url 'create_event' %}" method="post">
+          {% csrf_token %}
+          <div class="mb-3">
+            <table class="table table-borderless">
+               <tr>
+                <th><i></i> {{ form.name.label_tag }}</th>
+                <td>{{ form.name }}</td>
+              </tr>
+              <tr>
+                <th><i></i> {{ form.date.label_tag }}</th>
+                <td><input type="date" name="{{ form.date.name }}" class="form-control"></td>
+              </tr>
+              <tr>
+                <th><i class="fas fa-map-marker-alt"></i> {{ form.location.label_tag }}</th>
+                <td>{{ form.location }}</td>
+              </tr>
+              <tr>
+                <th><i class="fas fa-info-circle"></i> {{ form.description.label_tag }}</th>
+                <td>{{ form.description }}</td>
+              </tr>
+              <tr>
+                <th><i></i> {{ form.category.label_tag }}</th>
+                <td>{{ form.category }}</td>
+              </tr>
+            </table>
+          </div>
+          <div class="d-grid">
+            <button type="submit" class="btn btn-primary btn-lg"><i class="fas fa-check-circle"></i> Submit</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock %}

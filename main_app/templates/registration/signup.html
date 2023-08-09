@@ -1,15 +1,54 @@
 {% extends 'base.html' %}
+
 {% block content %}
-
-<h1>Sign Up</h1>
-#sign up
-
-<p class="red-text">{{ error_message }}</p>
-
-<form method="POST" action="{% url 'signup' %}">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <input type="submit" class="btn" value="Sign Up">
-</form>
-
+<div class="container">
+  <div class="row justify-content-center align-items-center min-vh-100">
+    <div class="col-md-6">
+      <div class="card p-5 shadow">
+        <h1 class="display-4 text-center mb-4"><i class="fas fa-user-plus"></i> Sign Up</h1>
+        {% if error_message %}
+          <p class="text-danger">{{ error_message }}</p>
+        {% endif %}
+        <form method="POST" action="{% url 'signup' %}">
+          {% csrf_token %}
+          <div class="mb-3">
+            <label for="{{ form.username.id_for_label }}">{{ form.username.label_tag }}</label>
+            <div class="input-group">
+              <span class="input-group-text"><i class="fas fa-user"></i></span>
+              <input type="{{ form.username.field.widget.input_type }}" name="{{ form.username.name }}"
+                     class="form-control" id="{{ form.username.id_for_label }}" required>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="{{ form.email.id_for_label }}">Email: </label>
+            <div class="input-group">
+              <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+              <input type="{{ form.email.field.widget.input_type }}" name="{{ form.email.name }}"
+                     class="form-control" id="{{ form.email.id_for_label }}" required>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="{{ form.password1.id_for_label }}">{{ form.password1.label_tag }}</label>
+            <div class="input-group">
+              <span class="input-group-text"><i class="fas fa-lock"></i></span>
+              <input type="{{ form.password1.field.widget.input_type }}" name="{{ form.password1.name }}"
+                     class="form-control" id="{{ form.password1.id_for_label }}" required>
+            </div>
+          </div>
+          <div class="mb-4">
+            <label for="{{ form.password2.id_for_label }}">Confirm Password</label>
+            <div class="input-group">
+              <span class="input-group-text"><i class="fas fa-lock"></i></span>
+              <input type="{{ form.password2.field.widget.input_type }}" name="{{ form.password2.name }}"
+                     class="form-control" id="{{ form.password2.id_for_label }}" required>
+            </div>
+          </div>
+          <div class="d-grid">
+            <button type="submit" class="btn btn-primary btn-lg"><i class="fas fa-check-circle"></i> Sign Up</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock %}
