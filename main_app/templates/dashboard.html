@@ -24,7 +24,7 @@
               <td>{{ event.location }}</td>
               <td>
                 {% for vendor in event.vendors.all %}
-                  {{ vendor.email }}{% if not forloop.last %}, {% endif %}
+                  {{ vendor.name }}{% if not forloop.last %}, {% endif %}
                 {% endfor %}
               </td>
             </tr>
