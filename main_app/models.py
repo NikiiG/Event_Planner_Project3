@@ -24,11 +24,12 @@ class Event(models.Model):
     date = models.DateField()
     location = models.CharField(max_length=255)
     description = models.TextField()
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    # user = models.ForeignKey(User, on_delete=models.CASCADE)
     category = models.CharField(
-    max_length=100,
+    max_length=1,
+    choices=CAT,
+    default=CAT[0][0]
 
-    
   )
     # vendors = models.ManyToManyField(Vendor)
     participants = models.IntegerField()

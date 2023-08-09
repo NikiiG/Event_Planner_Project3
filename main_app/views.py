@@ -58,10 +58,10 @@ class EventCreate(CreateView):
 
     def form_valid(self, form):
         # self.request.user is the logged in user
-        form.instance.user = self.request.user
+        instance = form.save()
         # Let the CreateView's form_valid method
         # do its regular work (saving the object & redirecting)
-        return super().form_valid(form)
+        return redirect(reverse('upcoming_events'))
 
 def upcoming_events(request):
     upcoming_events = Event.objects.order_by('date')
