@@ -54,14 +54,15 @@ def become_vendor(request):
 
 class EventCreate(CreateView):
     model = Event
-    fields = "__all__"
+    fields = ['name', 'date', 'location', 'description', 'category', 'participants', 'vendors']
 
     def form_valid(self, form):
         # self.request.user is the logged in user
-        instance = form.save()
+        form.instance.user = self.request.user
         # Let the CreateView's form_valid method
         # do its regular work (saving the object & redirecting)
-        return redirect(reverse('upcoming_events'))
+        return super().form_valid(form)
+
 
 def upcoming_events(request):
     upcoming_events = Event.objects.order_by('date')
@@ -99,14 +100,12 @@ def signup(request):
 
 
 def dashboard(request):
-    if request.user.is_authenticated:
-        user_vendors = Vendor.objects.filter(email=request.user.email)
-        user_events = Event.objects.filter(vendors__in=user_vendors)
+        user_vendors = Vendor.objects.all()
+        user_events = Event.objects.all()
 
         context = {
             'user_events': user_events,
             'user_vendors': user_vendors,
         }
         return render(request, 'dashboard.html', context)
-    else:
-        return redirect('login')
+

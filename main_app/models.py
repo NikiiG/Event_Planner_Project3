@@ -31,6 +31,7 @@ class Event(models.Model):
     default=CAT[0][0]
 
   )
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     vendors = models.ManyToManyField(Vendor)
     participants = models.IntegerField()
 
