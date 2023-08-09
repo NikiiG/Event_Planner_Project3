@@ -10,7 +10,7 @@
         {% else %}
           <h1 class="display-4 text-center mb-4"><i></i> Add Event</h1>
         {% endif %}
-        <form action="{% url 'create_event' %}" method="post">
+        <form action="{% url 'create_event'%}" method="POST">
           {% csrf_token %}
           <div class="mb-3">
             <table class="table table-borderless">
@@ -34,10 +34,14 @@
                 <th><i></i> {{ form.category.label_tag }}</th>
                 <td>{{ form.category }}</td>
               </tr>
+              <tr>
+                <th><i></i> {{ form.participants.label_tag }}</th>
+                <td>{{ form.participants }}</td>
+              </tr>
             </table>
           </div>
           <div class="d-grid">
-            <button type="submit" class="btn btn-primary btn-lg"><i class="fas fa-check-circle"></i> Submit</button>
+                <input type="submit" value="submit!" class="btn">
           </div>
         </form>
       </div>
