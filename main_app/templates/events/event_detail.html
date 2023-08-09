@@ -27,7 +27,7 @@
                         </div>
                     </div>
                     <div class="text-center mt-4">
-                        <a href="#" class="btn btn-primary mr-3"><i class="fas fa-edit"></i> Edit</a>
+                        <a href="{% url 'Events_update' event.id %}" class="btn btn-primary mr-3"><i class="fas fa-edit"></i> Edit</a>
                         <a href="{% url 'Events_delete' event.id %}" class="btn btn-danger"><i class="fas fa-trash"></i> Delete</a>
                     </div>
                 </div>
