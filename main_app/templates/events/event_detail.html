@@ -40,7 +40,7 @@
     <h3>{{ event.name }}'s Vendors</h3>
     {% if event.vendors.count %}
       {% for vendor in event.vendors.all %}
-        <div class="card bg-primary text-white mb-3">
+        <div class="card bg-light mb-3">
           <div class="card-body">
             <h5 class="card-title">{{ vendor.name }}</h5>
             <p class="card-text"><strong>Description:</strong> {{ vendor.description }}</p>
@@ -65,7 +65,7 @@
     <h3>Available Vendors</h3>
     {% if available_vendors.count %}
       {% for vendor in available_vendors.all %}
-        <div class="card bg-primary text-white mb-3">
+        <div class="card bg-light mb-3">
           <div class="card-body">
             <h5 class="card-title">{{ vendor.name }}</h5>
             <p class="card-text"><strong>Description:</strong> {{ vendor.description }}</p>
