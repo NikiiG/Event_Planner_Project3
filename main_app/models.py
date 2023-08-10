@@ -33,6 +33,7 @@ class Event(models.Model):
   )
     vendors = models.ManyToManyField(Vendor)
     participants = models.IntegerField()
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
         return f'{self.name}, {self.id}'
@@ -54,3 +55,12 @@ class Rating(models.Model):
 
     def __str__(self):
         return f'{self.value}, star'
+    
+class Comment(models.Model):
+    event = models.ForeignKey(Event, related_name="comments", on_delete=models.CASCADE)
+    name = models.CharField(max_length=255)
+    body = models.TextField()
+    date_added = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f'Comment by {self.name} on {self.event}'

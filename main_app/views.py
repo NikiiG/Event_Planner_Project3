@@ -3,13 +3,14 @@ from django.core.paginator import Paginator
 from urllib import request
 from django.http import HttpResponseNotAllowed
 from django.shortcuts import render, redirect
-from .models import Event, Category, Vendor, Rating
+from .models import Event, Category, Vendor, Rating, Comment
 from django.shortcuts import render
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from .forms import CommentForm
 # Create your views here.
 # def home(request):
 #     return render(request, "home.html")
@@ -54,14 +55,13 @@ def become_vendor(request):
 
 class EventCreate(CreateView):
     model = Event
-    fields = "__all__"
+    fields = ['name','date','location','description','category','participants','vendors']
 
     def form_valid(self, form):
-        # self.request.user is the logged in user
-        instance = form.save()
-        # Let the CreateView's form_valid method
-        # do its regular work (saving the object & redirecting)
-        return redirect(reverse('upcoming_events'))
+        # Assign the logged in user (self.request.user)
+        form.instance.user = self.request.user  # form.instance is the cat
+        # Let the CreateView do its job as usual
+        return super().form_valid(form)
 
 def upcoming_events(request):
     upcoming_events = Event.objects.order_by('date')
@@ -76,7 +76,7 @@ def event_detail(request, event_id):
 
 class EventUpdate(LoginRequiredMixin, UpdateView):
     model = Event
-    fields = "__all__"
+    fields = ['name','date','location','description','category','participants','vendors']
 
 
 class EventDelete(LoginRequiredMixin, DeleteView):
@@ -110,3 +110,14 @@ def dashboard(request):
         return render(request, 'dashboard.html', context)
     else:
         return redirect('login')
+    
+class CommentCreate(CreateView):
+    model = Comment
+    form_class = CommentForm
+    #fields = '__all__'
+    def form_valid(self, form):
+        # Assign the logged in user (self.request.user)
+        form.instance.event_id = self.kwargs[ 'pk' ]  # form.instance is the cat
+        # Let the CreateView do its job as usual
+        return super().form_valid(form)
+    success_url = "/upcoming_events"

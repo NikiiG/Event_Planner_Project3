@@ -3,10 +3,11 @@
 {% block content %}
         {% if object %}
           <h1 class="display-4 text-center mb-4"><i class="fas fa-edit"></i> Edit <span class="text-primary">{{ object.name }}</span></h1>
+          
         {% else %}
           <h1 class="display-4 text-center mb-4"><i></i> Add Event</h1>
         {% endif %}
-        <form action="{% url 'create_event'%}" method="POST">
+        <form action="" method="POST">
           {% csrf_token %}
           <div class="mb-3">
             <table class="table table-borderless">
@@ -50,4 +51,5 @@
     </div>
   </div>
 </div>
+
 {% endblock %}
