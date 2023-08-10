@@ -74,11 +74,13 @@ def upcoming_events(request):
 def event_detail(request, event_id):
     event = Event.objects.get(id=event_id)
     related_vendors = event.vendors.all()
-    available_vendors = Vendor.objects.exclude(event=event)  
+    available_vendors = Vendor.objects.exclude(event=event) 
+    comments = Comment.objects.filter(event=event) 
     context = {
         'event': event,
         'related_vendors': related_vendors,
         'available_vendors': available_vendors,
+        'comments': comments,
     }
     return render(request, 'events/event_detail.html', context)
 
@@ -119,6 +121,21 @@ def dashboard(request):
         }
         return render(request, 'dashboard.html', context)
 
+class comment_create(CreateView):
+    model = Comment
+    form_class = CommentForm
+    template_name = 'comment_create.html'
+
+    def form_valid(self, form):
+        event_id = self.kwargs['event_id']
+        event = get_object_or_404(Event, id=event_id)
+
+        comment = form.save(commit=False)
+        comment.user = self.request.user
+        comment.event = event
+        comment.save()
+
+        return redirect('event_detail', event_id=event_id)
 
 @login_required
 def assoc_vendor(request, event_id, vendor_id):
