@@ -66,5 +66,3 @@ class Comment(models.Model):
     def __str__(self):
         return f'comment by {self.user.username} on {self.event.name}'
 
-    def __str__(self):
-        return f'{self.comment}, {self.id}'

@@ -2,7 +2,9 @@ from django.urls import reverse
 from django.core.paginator import Paginator
 from urllib import request
 from django.http import HttpResponseNotAllowed
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
+
+from .forms import CommentForm
 from .models import Event, Category, Vendor, Rating, Comment
 from django.shortcuts import render
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
@@ -73,18 +75,7 @@ def event_detail(request, event_id):
     event = Event.objects.get(id=event_id)
     context = {'event': event}
     comments = Comment.objects.filter(event=event)
-
-    if request.method == 'POST':
-        comment = CommentForm(request.POST)
-        if comment.is_valid():
-            comment.save(commit = False)
-            comment.user = request.user
-            comment.event = event
-            comment.save()
-
-        else:
-            form = CommentForm()
-    return render(request, 'events/event_detail.html', context)
+    return render(request, 'events/event_detail.html', {'event': event, 'comments': comments})
 
 
 class EventUpdate(LoginRequiredMixin, UpdateView):
@@ -124,4 +115,18 @@ def dashboard(request):
 
 def contact_list(request):
     return render(request, 'contact_list.html')
+class comment_create(CreateView):
+    model = Comment
+    form_class = CommentForm
+    template_name = 'comment_create.html'
 
+    def form_valid(self, form):
+        event_id = self.kwargs['event_id']
+        event = get_object_or_404(Event, id=event_id)
+
+        comment = form.save(commit=False)
+        comment.user = self.request.user
+        comment.event = event
+        comment.save()
+
+        return redirect('event_detail', event_id=event_id)
