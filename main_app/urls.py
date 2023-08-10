@@ -16,5 +16,6 @@ urlpatterns = [
     path('dashboard/', views.dashboard, name='dashboard'),
     path('events/<int:event_id>/assoc_vendor/<int:vendor_id>/', views.assoc_vendor, name='assoc_vendor'),
     path('events/<int:event_id>/unassoc_vendor/<int:vendor_id>/', views.unassoc_vendor, name='unassoc_vendor'),
+    path('contact_list/', views.contact_list, name='contact_list'),
 ]
 
