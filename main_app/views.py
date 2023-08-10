@@ -111,15 +111,19 @@ def signup(request):
 
 def contact_list(request):
     return render(request, 'contact_us.html')
-def dashboard(request):
-        user_vendors = Vendor.objects.all()
-        user_events = Event.objects.all()
 
-        context = {
-            'user_events': user_events,
-            'user_vendors': user_vendors,
-        }
-        return render(request, 'dashboard.html', context)
+
+@login_required
+def dashboard(request):
+    user_vendors = Vendor.objects.all()
+    user_events = Event.objects.filter(user_id=request.user)    
+
+    context = {
+        'user_events': user_events,
+        'user_vendors': user_vendors,
+    }
+    return render(request, 'dashboard.html', context)
+
 
 class comment_create(CreateView):
     model = Comment
