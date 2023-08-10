@@ -71,7 +71,13 @@ def upcoming_events(request):
 
 def event_detail(request, event_id):
     event = Event.objects.get(id=event_id)
-    context = {'event': event}
+    related_vendors = event.vendors.all()
+    available_vendors = Vendor.objects.exclude(event=event)  
+    context = {
+        'event': event,
+        'related_vendors': related_vendors,
+        'available_vendors': available_vendors,
+    }
     return render(request, 'events/event_detail.html', context)
 
 
@@ -109,3 +115,16 @@ def dashboard(request):
         }
         return render(request, 'dashboard.html', context)
 
+@login_required
+def assoc_vendor(request, event_id, vendor_id):
+    event = Event.objects.get(id=event_id)
+    vendor = Vendor.objects.get(id=vendor_id)
+    event.vendors.add(vendor)
+    return redirect('event_detail', event_id=event_id)
+
+@login_required
+def unassoc_vendor(request, event_id, vendor_id):
+    event = Event.objects.get(id=event_id)
+    vendor = Vendor.objects.get(id=vendor_id)
+    event.vendors.remove(vendor)
+    return redirect('event_detail', event_id=event_id)
