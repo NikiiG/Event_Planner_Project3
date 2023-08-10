@@ -116,15 +116,14 @@ def contact_list(request):
 
 @login_required
 def dashboard(request):
-    user_vendors = Vendor.objects.all()
-    user_events = Event.objects.filter(user_id=request.user)    
+        user_vendors = Vendor.objects.all()
+        user_events = Event.objects.filter(user=request.user)
 
-    context = {
-        'user_events': user_events,
-        'user_vendors': user_vendors,
-    }
-    return render(request, 'dashboard.html', context)
-
+        context = {
+            'user_events': user_events,
+            'user_vendors': user_vendors,
+        }
+        return render(request, 'dashboard.html', context)
 
 
 class comment_create(LoginRequiredMixin ,CreateView):
