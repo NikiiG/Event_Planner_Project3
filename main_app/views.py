@@ -86,6 +86,7 @@ def event_detail(request, event_id):
 
 
 
+
 class EventUpdate(LoginRequiredMixin, UpdateView):
     model = Event
     fields = ['name', 'date', 'location', 'description', 'category', 'participants', 'vendors']
@@ -109,11 +110,14 @@ def signup(request):
   context = {'form': form, 'error_message': error_message}
   return render(request, 'registration/signup.html', context)
 
+
 def contact_list(request):
-    return render(request, 'contact_us.html')
+    return render(request, 'contact_list.html')
+
+@login_required
 def dashboard(request):
         user_vendors = Vendor.objects.all()
-        user_events = Event.objects.all()
+        user_events = Event.objects.filter(user=request.user)
 
         context = {
             'user_events': user_events,
@@ -121,7 +125,8 @@ def dashboard(request):
         }
         return render(request, 'dashboard.html', context)
 
-class comment_create(CreateView):
+
+class comment_create(LoginRequiredMixin ,CreateView):
     model = Comment
     form_class = CommentForm
     template_name = 'comment_create.html'
