@@ -13,7 +13,7 @@
             <th>Name</th>
             <th>Date</th>
             <th>Location</th>
-            <th>Vendors</th>
+            <th>Actions</th> 
           </tr>
         </thead>
         <tbody>
@@ -22,19 +22,20 @@
               <td>{{ event.name }}</td>
               <td>{{ event.date }}</td>
               <td>{{ event.location }}</td>
-              <td>
-                {% for vendor in event.vendors.all %}
-                  {{ vendor.name }}{% if not forloop.last %}, {% endif %}
-                {% endfor %}
+              <td> 
+                <div class="d-flex align-items-center">
+                  <a href="{% url 'Events_update' event.id %}" class="btn btn-primary btn-sm mr-20"><i class="fas fa-edit"></i> Edit</a>
+                  <br>
+                  <a href="{% url 'Events_delete' event.id %}" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i> Delete</a>
+                </div>
               </td>
             </tr>
           {% endfor %}
         </tbody>
       </table>
-            {% else %}
-            <p>No events found.</p>
-            {% endif %}
-
+      {% else %}
+      <p>No events found.</p>
+      {% endif %}
     </div>
   </div>
 {% endblock %}
