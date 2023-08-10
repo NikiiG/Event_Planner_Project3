@@ -3,7 +3,7 @@ from django.core.paginator import Paginator
 from urllib import request
 from django.http import HttpResponseNotAllowed
 from django.shortcuts import render, redirect
-from .models import Event, Category, Vendor, Rating
+from .models import Event, Category, Vendor, Rating, Comment
 from django.shortcuts import render
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.auth import login
@@ -72,6 +72,18 @@ def upcoming_events(request):
 def event_detail(request, event_id):
     event = Event.objects.get(id=event_id)
     context = {'event': event}
+    comments = Comment.objects.filter(event=event)
+
+    if request.method == 'POST':
+        comment = CommentForm(request.POST)
+        if comment.is_valid():
+            comment.save(commit = False)
+            comment.user = request.user
+            comment.event = event
+            comment.save()
+
+        else:
+            form = CommentForm()
     return render(request, 'events/event_detail.html', context)
 
 
