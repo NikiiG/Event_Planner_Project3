@@ -2,24 +2,26 @@
 
 {% block content %}
 <div class="container">
-    <h1 class="text-center mt-5 mb-5 bg-teal text-black py-2 rounded">All the Events</h1>
+    <h1 class="text-center mt-5 mb-5 bg-teal text-black py-3 rounded">Upcoming Events</h1>
 
     <div class="row">
         {% for event in upcoming_events %}
             <div class="col-md-6 mb-4">
-                <div class="card">
+                <div class="card event-card">
                     <div class="card-body">
                         <h3 class="card-title">
-                            <a class="plain-link" href="{% url 'event_detail' event.id %}">
-                                <span>{{ event.name }}</span>
+                            <a class="event-link" href="{% url 'event_detail' event.id %}">
+                                {{ event.name }}
                             </a>
                         </h3>
-                        <p class="card-text"><i class="far fa-calendar"></i> Date: {{ event.date }}</p>
-                        <p class="card-text"><i class="fas fa-map-marker-alt"></i> Location: {{ event.location }}</p>
-                        <p class="card-text"><i class="fas fa-tag"></i> Category: {{ event.category }}</p>
-                        <p class="card-text"><i class="fas fa-users"></i> Participants: {{ event.participants }}</p>
+                        <div class="event-info">
+                            <p class="card-text"><i class="far fa-calendar"></i> Date: {{ event.date }}</p>
+                            <p class="card-text"><i class="fas fa-map-marker-alt"></i> Location: {{ event.location }}</p>
+                            <p class="card-text"><i class="fas fa-tag"></i> Category: {{ event.category }}</p>
+                            <p class="card-text"><i class="fas fa-users"></i> Participants: {{ event.participants }}</p>
+                        </div>
                         <hr>
-                        <p class="card-text"><i class="fas fa-info-circle"></i> {{ event.description }}</p>
+                        <p class="card-text description"><i class="fas fa-info-circle"></i> {{ event.description }}</p>
                     </div>
                 </div>
             </div>
