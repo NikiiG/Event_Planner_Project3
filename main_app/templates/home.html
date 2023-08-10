@@ -2,7 +2,13 @@
 
 {% block content %}
 <div class="container">
+<<<<<<< HEAD
      <h1 class="text-center mt-5 mb-5 bg-teal">Upcoming Events</h1> 
+=======
+    <div id="countdown-timer" class="text-center mt-3 mb-3"></div>
+
+    <h1 class="text-center mt-5 mb-5 bg-teal">Upcoming Events</h1>
+>>>>>>> main
 
     <div class="row">
         {% for event in recent_events %} 
@@ -28,9 +34,9 @@
     <div class="container">
         <div class="row justify-content-center align-items-center">
             <div class="col-md-6">
-                <button class="btn btn-success btn-icon mr-3">
-                    <i class="fas fa-comments"></i> Connect Us
-                </button>
+                <a href="/contact_list" class="btn btn-success btn-icon mr-3">
+                    <i  class="fas fa-comments"></i> Connect with Us
+                </a>
                 <a href="/terms-of-service" class="btn btn-link text-white"><i class="fas fa-file-contract"></i> Terms of Service</a>
                 <a href="/about" class="btn btn-link text-white"><i class="fas fa-info-circle"></i> About</a>
             </div>
@@ -41,4 +47,10 @@
     </div>
 </footer>
 
+<<<<<<< HEAD
 {% endblock %}
+=======
+{% endblock %}
+
+
+>>>>>>> main

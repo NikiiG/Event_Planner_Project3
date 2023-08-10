@@ -16,6 +16,7 @@ class Vendor(models.Model):
     email = models.EmailField(unique=True)
     pricing = models.CharField()
 
+
     def __str__(self):
         return f'{self.name}, {self.id}'
 
@@ -31,6 +32,7 @@ class Event(models.Model):
     default=CAT[0][0]
 
   )
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     vendors = models.ManyToManyField(Vendor)
     participants = models.IntegerField()
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -55,12 +57,13 @@ class Rating(models.Model):
 
     def __str__(self):
         return f'{self.value}, star'
-    
+
 class Comment(models.Model):
-    event = models.ForeignKey(Event, related_name="comments", on_delete=models.CASCADE)
-    name = models.CharField(max_length=255)
-    body = models.TextField()
-    date_added = models.DateTimeField(auto_now=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    event = models.ForeignKey(Event, on_delete=models.CASCADE)
+    text = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f'Comment by {self.name} on {self.event}'
+        return f'comment by {self.user.username} on {self.event.name}'
+

@@ -1,7 +1,5 @@
 from django.contrib import admin
-
-from .models import Vendor, Event, Category, Rating, Comment
-
+from .models import Event, Vendor, Rating, Comment
 # Register your models here.
 admin.site.register(Vendor)
 admin.site.register(Event)

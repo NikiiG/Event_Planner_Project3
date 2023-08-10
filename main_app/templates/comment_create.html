@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card mt-5">
+                <div class="card-header bg-teal text-black">
+                    <h1 class="text-center">Add a Comment</h1>
+                </div>
+                <div class="card-body">
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="{{ form.text.id_for_label }}">Your Comment:</label>
+                            {{ form.text }}
+                        </div>
+                        <button type="submit" class="btn btn-primary mt-2">Submit Comment</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

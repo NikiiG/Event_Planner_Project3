@@ -32,11 +32,35 @@
                     </div>
 
                 </div>
+                <div class="card-footer">
+                    <div class="mt-5">
+                        <h2>Comments</h2>
+                        <ul>
+                            {% for comment in comments %}
+                                <li>
+                                    <strong>{{ comment.user }} said: </strong>
+                                    <p>{{ comment.text }}</p>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+
+                    <div class="mt-4">
+                        <form method="post" action="{% url 'comment_create' event.id %}">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                {{ form.text }}
+                            </div>
+                            <button type="submit" class="btn btn-primary mt-2">add a Comment</button>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
 </div>
+<<<<<<< HEAD
 <div>
     <br />
     <hr>
@@ -60,4 +84,59 @@
 
 </div>
 
+=======
+<div class="row">
+  <div class="col-lg-6">
+    <h3>{{ event.name }}'s Vendors</h3>
+    {% if event.vendors.count %}
+      {% for vendor in event.vendors.all %}
+        <div class="card bg-light mb-3">
+          <div class="card-body">
+            <h5 class="card-title">{{ vendor.name }}</h5>
+            <p class="card-text"><strong>Description:</strong> {{ vendor.description }}</p>
+            <p class="card-text"><strong>Phone Number:</strong> {{ vendor.phone_number }}</p>
+            <p class="card-text"><strong>Email:</strong> {{ vendor.email }}</p>
+            <p class="card-text"><strong>Pricing:</strong> {{ vendor.pricing }}</p>
+          </div>
+          <div class="card-footer">
+            <form action="{% url 'unassoc_vendor' event.id vendor.id %}" method="POST">
+              {% csrf_token %}
+              <button type="submit" class="btn btn-danger">Remove</button>
+            </form>
+          </div>
+        </div>
+      {% endfor %}
+    {% else %}
+      <h5 class="text-muted">Vendors Coming Soon!</h5>
+    {% endif %}
+  </div>
+  <!-- Available vendors will come after this line -->
+  <div class="col-lg-6">
+    <h3>Available Vendors</h3>
+    {% if available_vendors.count %}
+      {% for vendor in available_vendors.all %}
+        <div class="card bg-light mb-3">
+          <div class="card-body">
+            <h5 class="card-title">{{ vendor.name }}</h5>
+            <p class="card-text"><strong>Description:</strong> {{ vendor.description }}</p>
+            <p class="card-text"><strong>Phone Number:</strong> {{ vendor.phone_number }}</p>
+            <p class="card-text"><strong>Email:</strong> {{ vendor.email }}</p>
+            <p class="card-text"><strong>Pricing:</strong> {{ vendor.pricing }}</p>
+          </div>
+          <div class="card-footer">
+            <form action="{% url 'assoc_vendor' event.id vendor.id %}" method="POST">
+              {% csrf_token %}
+              <button type="submit" class="btn btn-success">Add</button>
+            </form>
+          </div>
+        </div>
+      {% endfor %}
+    {% else %}
+      <h5 class="text-muted">All Vendors Already Associated</h5>
+    {% endif %}
+  </div>
+</div>
+
+
+>>>>>>> main
 {% endblock %}
