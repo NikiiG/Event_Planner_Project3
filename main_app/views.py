@@ -77,7 +77,7 @@ def event_detail(request, event_id):
 
 class EventUpdate(LoginRequiredMixin, UpdateView):
     model = Event
-    fields = "__all__"
+    fields = ['name', 'date', 'location', 'description', 'category', 'participants', 'vendors']
 
 
 class EventDelete(LoginRequiredMixin, DeleteView):
@@ -98,7 +98,8 @@ def signup(request):
   context = {'form': form, 'error_message': error_message}
   return render(request, 'registration/signup.html', context)
 
-
+def contact_list(request):
+    return render(request, 'contact_us.html')
 def dashboard(request):
         user_vendors = Vendor.objects.all()
         user_events = Event.objects.all()
@@ -108,4 +109,7 @@ def dashboard(request):
             'user_vendors': user_vendors,
         }
         return render(request, 'dashboard.html', context)
+
+def contact_list(request):
+    return render(request, 'contact_list.html')
 

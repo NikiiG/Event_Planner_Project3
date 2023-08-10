@@ -15,6 +15,7 @@ class Vendor(models.Model):
     phone_number = models.CharField(max_length=255)
     email = models.EmailField(unique=True)
     pricing = models.CharField()
+    
 
     def __str__(self):
         return f'{self.name}, {self.id}'
