@@ -8,7 +8,6 @@ urlpatterns = [
     path('become_vendor/', views.become_vendor, name='become_vendor'),
     path('event/create/', views.EventCreate.as_view(), name="create_event"),
     path('events/<int:event_id>/comment_create/', views.comment_create.as_view(), name='comment_create'),
-
     path('events/<int:pk>/update/', views.EventUpdate.as_view(), name='Events_update'),
     path('upcoming_events/', views.upcoming_events, name='upcoming_events'),
     path('events/<int:event_id>/', views.event_detail, name='event_detail'),
@@ -17,4 +16,5 @@ urlpatterns = [
     path('dashboard/', views.dashboard, name='dashboard'),
     path('events/<int:event_id>/assoc_vendor/<int:vendor_id>/', views.assoc_vendor, name='assoc_vendor'),
     path('events/<int:event_id>/unassoc_vendor/<int:vendor_id>/', views.unassoc_vendor, name='unassoc_vendor'),
+]
 
