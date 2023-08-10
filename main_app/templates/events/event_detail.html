@@ -31,6 +31,29 @@
                         <a href="{% url 'Events_delete' event.id %}" class="btn btn-danger"><i class="fas fa-trash"></i> Delete</a>
                     </div>
                 </div>
+                <div class="card-footer">
+                    <div class="mt-5">
+                        <h2>Comments</h2>
+                        <ul>
+                            {% for comment in comments %}
+                                <li>
+                                    <strong>{{ comment.user }} said: </strong>
+                                    <p>{{ comment.text }}</p>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+
+                    <div class="mt-4">
+                        <form method="post" action="{% url 'comment_create' event.id %}">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                {{ form.text }}
+                            </div>
+                            <button type="submit" class="btn btn-primary mt-2">add a Comment</button>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

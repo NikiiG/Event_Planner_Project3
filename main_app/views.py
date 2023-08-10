@@ -2,8 +2,10 @@ from django.urls import reverse
 from django.core.paginator import Paginator
 from urllib import request
 from django.http import HttpResponseNotAllowed
-from django.shortcuts import render, redirect
-from .models import Event, Category, Vendor, Rating
+from django.shortcuts import render, redirect, get_object_or_404
+
+from .forms import CommentForm
+from .models import Event, Category, Vendor, Rating, Comment
 from django.shortcuts import render
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.auth import login
@@ -81,9 +83,10 @@ def event_detail(request, event_id):
     return render(request, 'events/event_detail.html', context)
 
 
+
 class EventUpdate(LoginRequiredMixin, UpdateView):
     model = Event
-    fields = "__all__"
+    fields = ['name', 'date', 'location', 'description', 'category', 'participants', 'vendors']
 
 
 class EventDelete(LoginRequiredMixin, DeleteView):
@@ -104,7 +107,8 @@ def signup(request):
   context = {'form': form, 'error_message': error_message}
   return render(request, 'registration/signup.html', context)
 
-
+def contact_list(request):
+    return render(request, 'contact_us.html')
 def dashboard(request):
         user_vendors = Vendor.objects.all()
         user_events = Event.objects.all()
@@ -114,6 +118,7 @@ def dashboard(request):
             'user_vendors': user_vendors,
         }
         return render(request, 'dashboard.html', context)
+
 
 @login_required
 def assoc_vendor(request, event_id, vendor_id):
@@ -128,3 +133,4 @@ def unassoc_vendor(request, event_id, vendor_id):
     vendor = Vendor.objects.get(id=vendor_id)
     event.vendors.remove(vendor)
     return redirect('event_detail', event_id=event_id)
+
