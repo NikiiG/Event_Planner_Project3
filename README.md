@@ -1,5 +1,5 @@
 EventPro
-Event Pro ia an event planner web based app build on Django framework used to manage the activity related to an event.It is also important for event organizer that he has all the contacts details of the vendors so that the user can contact them any time to plan an event at given time .This app creates an event based on the category . All the upcoming  events are displayed on the dashboard of the app. The app also has a field to become a vendor. 
+Event Pro is an event planner web based app build on Django framework used to manage the activity related to an event.It is also important for event organizer that he has all the contacts details of the vendors so that the user can contact them any time to plan an event at given time .This app creates an event based on the category . All the upcoming  events are displayed on the dashboard of the app. The app also has a field to become a vendor. 
 
 Application allows  only authorized user to perform CRUD (create, read, update, delete) operations on events data.
 Below points describes the features of the application: 
@@ -11,7 +11,7 @@ Below points describes the features of the application:
 -Event created by user can only update or delete.
 
 Screenshot(s): 
-![homepage](homepage.png)
+![homepage](homepage1.png)
 ![login](loginpage.png)
 
 Technologies Used:
