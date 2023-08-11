@@ -12,7 +12,7 @@ Below points describes the features of the application:
 
 Screenshot(s): 
 ![main_app/templates/images/homepage.png](main_app/templates/images/homepage.png) | 
-![main_app/templates/images/loginpage.png](main_app/templates/images/loginpage.png)
+![](main_app/templates/images/loginpage.png)
 
 Technologies Used:
 Django
