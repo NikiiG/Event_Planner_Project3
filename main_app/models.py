@@ -35,7 +35,7 @@ class Event(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     vendors = models.ManyToManyField(Vendor)
     participants = models.IntegerField()
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    
 
     def __str__(self):
         return f'{self.name}, {self.id}'

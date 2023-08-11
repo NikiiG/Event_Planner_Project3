@@ -1,14 +1,11 @@
-{% extends 'base.html' %}
-
-{% block content %}
+{% extends 'base.html' %} {% block content %}
 <div class="container mt-5">
   <h1 class="mb-4">Dashboard</h1>
 
   <div class="row">
     <div class="col-md-8">
       <div class="dashboard-header mb-4">
-<h3>Hi, {{ user.username }}! <i class="fas fa-hand-wave"></i></h3>
-
+        <h3>Hi, {{ user.username }}! <i class="fas fa-hand-wave"></i></h3>
       </div>
 
       <h3 class="mb-4">Your Events</h3>
@@ -31,8 +28,16 @@
             <td>{{ event.location }}</td>
             <td>
               <div class="btn-group">
-                <a href="{% url 'Events_update' event.id %}" class="btn btn-outline-primary btn-sm"><i class="fas fa-edit"></i> Edit</a>
-                <a href="{% url 'Events_delete' event.id %}" class="btn btn-outline-danger btn-sm"><i class="fas fa-trash"></i> Delete</a>
+                <a
+                  href="{% url 'Events_update' event.id %}"
+                  class="btn btn-outline-primary btn-sm"
+                  ><i class="fas fa-edit"></i> Edit</a
+                >
+                <a
+                  href="{% url 'Events_delete' event.id %}"
+                  class="btn btn-outline-danger btn-sm"
+                  ><i class="fas fa-trash"></i> Delete</a
+                >
               </div>
             </td>
           </tr>
@@ -44,4 +49,5 @@
       {% endif %}
     </div>
   </div>
-{% endblock %}
+  {% endblock %}
+</div>
