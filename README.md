@@ -11,7 +11,8 @@ Below points describes the features of the application:
 -Event created by user can only update or delete.
 
 Screenshot(s): 
-![](main_app/templates/images/homepage.png) | ![](main_app/templates/images/loginpage.png)
+![homepage](homepage.png)
+![login](loginpage.png)
 
 Technologies Used:
 Django
